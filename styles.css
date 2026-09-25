@@ -1,0 +1,84 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    height: 100vh;
+}
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 3rem;
+    background-color: #FAF3E5;
+}
+/* Styling for form and inputs */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+.players {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+input {
+    padding: 0.5rem 0.7rem;
+    border: 2px solid #D8D8D8;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+}
+#player1 {
+    border-bottom: 3px solid gold; /* gold glow */
+}
+#player1:focus {
+    outline-color: gold;
+}
+#player2 {
+    border-bottom: 3px solid #1F3D3A; /* deep teal/green glow */
+}
+#player2:focus {
+    outline-color: #1F3D3A;
+}
+
+/* Styling of the gameboard */
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: fit-content;
+    margin: auto;
+}
+.square {
+    border: 2px solid gold;
+    height: 15vh;
+    aspect-ratio: 1;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    background-color: #FDF6F0;
+}
+.square > p {
+    font-size: 3rem;
+    color: #1F3D3A;
+}
+dialog {
+    margin: auto;
+    padding: 4rem;
+}
+button {
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 0.8rem 1.6rem;
+    background-color: #1F3D3A;
+    color: white;
+    transition: transform 0.1s ease, background-color 0.15s ease;
+}
