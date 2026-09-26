@@ -29,6 +29,7 @@ const gameBoard = (() => {  // Module responsible for managing the game board an
                 return board[a];
             }
         }
+        if (board.every(cell => cell !== null)) return "tie";   // all squares full but no winner -> tie
         return null;
     }
     // Return the functions that need to be accessible outside of the module
@@ -97,11 +98,15 @@ const game = (() => {
         document.getElementById("player2").disabled = false;
         form.querySelector("button[type='submit']").disabled = false;
     }
+    function resetTurn() {
+        activePlayer = player1; // if the player press reset, player1 goes first
+    }
     return {
         getActivePlayer,
         getPlayerByMarker,
         switchTurn,
-        resetGame
+        resetGame,
+        resetTurn
     };
 })();
 
@@ -127,12 +132,13 @@ const display = (() => {
                     const result = gameBoard.checkWinner();
                     if (result !== null) {  // a player won
                         render();
-                        const dialog = document.querySelector(".winner");
+                        const dialog = document.querySelector(".result");
                         dialog.innerHTML = ""; // clear any previous winner message
-                        const winner = document.createElement("h1");
-                        winner.textContent = game.getPlayerByMarker(result) + " WINS!";
-                        dialog.appendChild(winner);
-                        dialog.showModal(); // show the winner message
+                        const resultMsg = document.createElement("h1");
+                        if (result === "tie") resultMsg.textContent = "TIE";    // tie message
+                        else resultMsg.textContent = game.getPlayerByMarker(result) + " WINS!"; // winner message
+                        dialog.appendChild(resultMsg);
+                        dialog.showModal(); // show the result message
                         dialog.addEventListener("click", (e) => {   // close dialog and reset gameboard
                             if (e.target === dialog) {
                                 dialog.close();
@@ -157,8 +163,9 @@ const display = (() => {
 })();
 
 // Reset button logic
-const restart = document.querySelector(".reset");
-restart.addEventListener("click", () => {
+const reset = document.querySelector(".reset");
+reset.addEventListener("click", () => {
     gameBoard.resetBoard(); // reset board
+    game.resetTurn();
     display.render();
 });
